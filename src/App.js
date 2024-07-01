@@ -4,46 +4,48 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import EmailList from "./components/emailList";
 import Login from "./components/login";
+import axios from "axios";
+import { GoogleOAuthProvider, useGoogleLogin } from "@react-oauth/google";
 // import { auth } from "./firebaseConfig";
 // import { useAuthState } from "react-firebase-hooks/auth";
 // import axios from "axios";
 
 function App() {
   // const [user] = useAuthState(auth);
-  const [tokens, setTokens] = useState(null);
-
+  // const [tokens, setTokens] = useState(null);
+  const [user, setUser] = useState();
   // useEffect(() => {
-  //   if (user) {
-  //     user.getIdToken(true).then((idToken) => {
-  //       const { uid } = user;
-  //       // Send idToken and uid to the backend
-  //       axios
-  //         .post("http://localhost:3000/store-tokens", {
-  //           userId: uid,
-  //           tokens: idToken,
-  //         })
-  //         .then((response) => {
-  //           console.log("Tokens stored:", response.data);
-  //         })
-  //         .catch((error) => {
-  //           console.error("Error storing tokens:", error);
-  //         });
-  //     });
+  //   console.log("inside se efeect", userData);
+  //   if (userData?.user?.user?.uid) {
+  //     const { user } = userData?.user;
+  //     axios
+  //       .post("http://localhost:5000/store-tokens", {
+  //         userId: user?.uid,
+  //         email: user?.email,
+  //         tokens: {
+  //           access_token: userData?.credential?.accessToken,
+  //           id_token: userData?.credential.idToken,
+  //           refresh_token: user?.stsTokenManager?.refreshToken, // Ensure this is captured
+  //         },
+  //       })
+  //       .then((response) => {
+  //         console.log("Tokens stored:", response.data);
+  //       })
+  //       .catch((error) => {
+  //         console.error("Error storing tokens:", error);
+  //       });
   //   }
-  // }, [user]);
+  // }, [userData]);
+
+  // console.log(userData, "tokens");
 
   return (
-    <div className="App">
-      hello
-      <header className="">
-        <h1>Gmail Notifier</h1>
-      </header>
-      <div className="">
-        <EmailList />
-        {/* <Login onLogin={(user) => setTokens(user?.refreshToken)} /> */}
-        {/* {user && } */}
+    <GoogleOAuthProvider clientId="226341879966-a1nf9tfijbfkjqrlmqpdephpjd5ilquh.apps.googleusercontent.com">
+      <div className="App">
+        hello
+        <Login />
       </div>
-    </div>
+    </GoogleOAuthProvider>
   );
 }
 

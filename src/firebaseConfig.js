@@ -25,12 +25,22 @@ const db = getFirestore(app);
 const realtimeDb = getDatabase(app);
 
 const provider = new GoogleAuthProvider();
+provider.setCustomParameters({
+  prompt: "consent",
+  access_type: "offline",
+});
 
 const signInWithGoogle = () => {
   return signInWithPopup(auth, provider)
     .then((result) => {
       // Handle result.user here
-      return result.user;
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      // const token = credential.idToken;
+      // The signed-in user info.
+      // const user = result.user;
+      console.log(credential, result);
+      return { credential, user: result };
+      // return result.user;
     })
     .catch((error) => {
       console.error(error);
